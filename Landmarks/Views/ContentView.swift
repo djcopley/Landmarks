@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView: View {    
     var body: some View {
-        LandmarkList()    
+        LandmarkList()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ModelData())
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (2nd generation)"))
     }
 }

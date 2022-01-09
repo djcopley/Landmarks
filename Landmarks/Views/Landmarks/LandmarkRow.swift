@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LandmarkRow: View {
+    @EnvironmentObject var modelData: ModelData
     var landmark: Landmark
     
     var body: some View {
@@ -18,13 +19,16 @@ struct LandmarkRow: View {
             Text(landmark.name)
             Spacer()
             if landmark.isFavorite {
-                Image("star")
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
             }
         }
     }
 }
 
 struct LandmarkRow_Previews: PreviewProvider {
+    static var landmarks = ModelData().landmarks
+
     static var previews: some View {
         Group {
             LandmarkRow(landmark: landmarks[0])
