@@ -29,6 +29,8 @@ struct CategoryItem: View {
                         .offset(x: CGFloat(-size), y: CGFloat(-size))
                 }
             }
+            .shadow(radius: 7)
+            .padding(.top)
             Text(landmark.name)
                 .font(.subheadline)
                 .foregroundColor(.black)

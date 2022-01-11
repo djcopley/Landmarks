@@ -6,19 +6,15 @@
 //
 
 import SwiftUI
-import Combine
-
 
 struct CategoryHome: View {
+    // MARK: Bindings
     @EnvironmentObject var modelData: ModelData
-    @State var timer: Publishers.Autoconnect<Timer.TimerPublisher>
-    @State var featuredViewArrayIndex = 0
-    
-    init() {
-        timer = Timer.publish(every: Self.timerPeriod, on: .main, in: .common).autoconnect()
-    }
+    @State private var timer = Timer.publish(every: Self.timerPeriod, on: .main, in: .common).autoconnect()
+    @State private var featuredViewArrayIndex = 0
+    @State private var showingProfile = false
 
-        
+    // MARK: UI Elements
     var body: some View {
         let featuredViewArray = modelData.featuredLandmarks.map { FeaturedView(landmark: $0) }
         
@@ -33,12 +29,15 @@ struct CategoryHome: View {
                             }
                         }
                         .onAppear {
+                            // Start the timer while the featured item is on display
                             startTimer()
                         }
                         .onDisappear {
+                            // Stop the timer when the app switches views
                             stopTimer()
                         }
                         .onReceive(timer) { _ in
+                            // Animate view change when timer publishes event
                             withAnimation(.easeIn) {
                                 featuredViewArrayIndex += 1
                                 if featuredViewArrayIndex >= featuredViewArray.count {
@@ -54,6 +53,17 @@ struct CategoryHome: View {
                 }
             }
             .navigationTitle("Featured")
+            .toolbar {
+                Button {
+                    showingProfile.toggle()
+                } label: {
+                    Label("User Profile", systemImage: "person.crop.circle")
+                }
+            }
+            .sheet(isPresented: $showingProfile) {
+                ProfileHost()
+                    .environmentObject(modelData)
+            }
         }
     }
     
