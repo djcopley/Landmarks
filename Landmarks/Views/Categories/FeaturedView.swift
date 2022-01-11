@@ -33,6 +33,7 @@ struct FeaturedView: View {
         }
     }
     
+    // MARK: Constants
     private let textOffset: CGFloat = 25
     private let strokeLineWidth: CGFloat = 4
     private let roundedRectangleRadius: CGFloat = 15

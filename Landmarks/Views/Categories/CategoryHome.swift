@@ -54,10 +54,10 @@ struct CategoryHome: View {
                     }
                 }
             }
-            .padding()
             .navigationTitle("Featured")
         }
     }
+    
     // MARK: Timer start/stop
     private func stopTimer() {
         self.timer.upstream.connect().cancel()
