@@ -47,7 +47,6 @@ struct CategoryHome: View {
                             }
                         }
                     }
-
                     ForEach(modelData.categories.keys.sorted(), id: \.self) { key in
                         CategoryRow(name: key, landmarks: modelData.categories[key] ?? [])
                             .padding(.bottom, 10)
