@@ -16,7 +16,16 @@ struct LandmarkRow: View {
             landmark.image
                 .resizable()
                 .frame(width: 50, height: 50)
-            Text(landmark.name)
+                .cornerRadius(rowCornerRadius)
+            VStack(alignment: .leading){
+                Text(landmark.name)
+                    .font(.headline)
+                #if !os(watchOS)
+                Text(landmark.park)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                #endif
+            }
             Spacer()
             if landmark.isFavorite {
                 Image(systemName: "star.fill")
@@ -24,6 +33,9 @@ struct LandmarkRow: View {
             }
         }
     }
+    
+    // MARK: Constants
+    private let rowCornerRadius: CGFloat = 6
 }
 
 struct LandmarkRow_Previews: PreviewProvider {
